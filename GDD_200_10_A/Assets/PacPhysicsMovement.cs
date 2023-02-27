@@ -14,6 +14,11 @@ public class PacPhysicsMovement : MonoBehaviour
 
     public bool canJump;
     float gravitationalForces;
+    private bool audioPlaying = false;
+
+  
+    GameObject footstepsAudioObject;
+    AudioSource footstepsAudio;
 
     void Start()
     {
@@ -22,6 +27,9 @@ public class PacPhysicsMovement : MonoBehaviour
         upForce = new Vector3(0, 17, 0);
         leftForce = new Vector3(-2, 0, 0);
         canJump = true;
+
+        footstepsAudioObject = GameObject.Find("FootstepsAudio");
+        footstepsAudio = footstepsAudioObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -36,15 +44,39 @@ public class PacPhysicsMovement : MonoBehaviour
 
             //pacPhysics.AddForce(rightForce);
             pacPhysics.velocity = finalRightForce;
+
+            //apply footsteps audio
+            if(audioPlaying == false)
+            {
+                footstepsAudio.Play();
+                audioPlaying = true;
+            }
+            
             
         }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             Debug.Log("Left Arrow Detected");
 
             finalLeftForce = new Vector3(leftForce.x, gravitationalForces, 0);
             pacPhysics.velocity = finalLeftForce;
+
+            //apply footsteps audio
+            if (audioPlaying == false)
+            {
+                footstepsAudio.Play();
+                audioPlaying = true;
+            }
+
+        }
+        else
+        {
+            //not moving left or right
+            if(audioPlaying == true)
+            {
+                footstepsAudio.Stop();
+                audioPlaying = false;
+            }
             
         }
 
