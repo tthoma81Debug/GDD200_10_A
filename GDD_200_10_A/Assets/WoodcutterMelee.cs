@@ -8,11 +8,17 @@ public class WoodcutterMelee : MonoBehaviour
     Animator woodcutterAnimator;
     GameObject axeSwingAudioObject;
     AudioSource axeSwingAudio;
+
+    GameObject theGameManager;
+    Inventory theInventoryScript;
     void Start()
     {
         woodcutterAnimator = GetComponent<Animator>();
         axeSwingAudioObject = GameObject.Find("AxeSwingAudio");
         axeSwingAudio = axeSwingAudioObject.GetComponent<AudioSource>();
+
+        theGameManager = GameObject.Find("GameManager");
+        theInventoryScript = theGameManager.GetComponent<Inventory>();
     }
 
     // Update is called once per frame
@@ -25,6 +31,20 @@ public class WoodcutterMelee : MonoBehaviour
 
             //play sound
             axeSwingAudio.Play();
+        }
+        else if(Input.GetKeyDown(KeyCode.R))
+        {
+            //magic attack
+            GameObject fireball = theInventoryScript.find("pocket_sun");
+
+            if(fireball != null)
+            {
+                Debug.Log("Attacking with " + fireball.name);
+            }
+            else
+            {
+                Debug.Log("Pocket sun not in inventory. Cannot magic attack");
+            }
         }
     }
 }

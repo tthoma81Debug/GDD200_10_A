@@ -39,7 +39,7 @@ public class PacPhysicsMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            Debug.Log("Right arrow detected.");
+            //Debug.Log("Right arrow detected.");
             finalRightForce = new Vector3(rightForce.x, gravitationalForces, 0);
 
             //pacPhysics.AddForce(rightForce);
@@ -56,7 +56,7 @@ public class PacPhysicsMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Debug.Log("Left Arrow Detected");
+            //Debug.Log("Left Arrow Detected");
 
             finalLeftForce = new Vector3(leftForce.x, gravitationalForces, 0);
             pacPhysics.velocity = finalLeftForce;
